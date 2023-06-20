@@ -20,6 +20,6 @@ theorem alt : {// p} = Supertype p := rfl
 
 end 
 
-scoped macro_rules | `(↑$x) => `({val:=$x})
-scoped macro_rules | `(⟨$x⟩) => `({val:=$x})
-scoped macro_rules | `(⟨$x, $h⟩) => `({val:=$x, property:=$h})
+scoped macro_rules | `(↑$v) => `({val:=$v, property:=(by mk_subtype_tactic)})
+scoped macro_rules | `(⟨$v⟩) => `({val:=$v, property:=(by mk_subtype_tactic)})
+scoped macro_rules | `(⟨$v, $h⟩) => `({val:=$v, property:=$h})

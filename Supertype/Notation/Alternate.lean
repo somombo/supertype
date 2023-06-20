@@ -23,9 +23,9 @@ end
 
 @[inherit_doc Supertype]
 syntax:max term /- noWs -/ "..."  : term
-macro_rules | `($x...) => `({val:=$x})
+macro_rules | `($v...) => `({val:=$v, property:=(by mk_subtype_tactic)})
 
 
 @[inherit_doc Supertype]
 syntax:max "..." /- noWs -/ term  : term
-macro_rules | `(...$x) => `({val:=$x})
+macro_rules | `(...$v) => `({val:=$v, property:=(by mk_subtype_tactic)})

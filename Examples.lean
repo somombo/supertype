@@ -37,6 +37,8 @@ example : {\\ 3 + · ≤ 11} = Supertype (3 + · ≤ 11) := rfl  #check {\\ 3 + 
 example : {\\ · < 5} := 2 ...
 example : {\\ · < 5} := ... 2
 
+example : {\\ · < 5} := 7 ... -- Error: fails to automatically prove value has the predicted property
+example : {\\ · < 5} := ... 7 -- Error: fails to automatically prove value has the predicted property
 
 -- OVERR
 section override 
@@ -48,5 +50,9 @@ example : {// 3 + · ≤ 11} = Supertype (3 + · ≤ 11) := rfl  #check {// 3 + 
 
 example : {// · < 5} :=  ↑2 
 example : {// · < 5} :=  ⟨ 2 ⟩
+
 example : {// · < 5} :=  ⟨ 2, by simp_arith ⟩
+
+example : {// · < 5} :=  ↑7   -- Error: fails to automatically prove value has the predicted property
+example : {// · < 5} :=  ⟨ 7 ⟩ -- Error: fails to automatically prove value has the predicted property
 end override

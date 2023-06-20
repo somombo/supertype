@@ -40,8 +40,11 @@ a pair-like type, so if you have `x : α` and `h : p x` then
 `⟨x, h⟩ : {x // p x}`. An element `s : {x // p x}` will coerce to `α` but
 you can also make it explicit using `s.2` or `s.val`.
 -/
-structure Supertype {π : Sort u} (p : π → Prop) 
-extends Subtype p where
+structure Supertype 
+  {π : Sort u} 
+  (p : π → Prop) 
+extends Subtype p 
+where
   -- /-- If `s : {x // p x}` then `s.val : α` is the underlying element in the base
   -- type. You can also write this as `s.2`, or simply as `s` when the type is
   -- known from context. -/
@@ -60,8 +63,18 @@ namespace Supertype
 variable (s : Supertype p)
 
 def prop := s.pred s.val
+-- def property := s.proof
+-- def toSubtype := {val := s.val, property := s.proof : Subtype p}
 end Supertype
 
+-- class MkSup 
+--   (π : Type u) 
+--   (p : outParam (π → Prop)) 
+--   (S : outParam (Type w)) 
+-- where
+--   mkSup (x : π) (h : p x) : S -- Supertype p
+
+-- export MkSup (mkSup)
 
 ----
 section instances
