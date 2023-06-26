@@ -10,7 +10,7 @@ scoped macro_rules
 @[inherit_doc Supertype] 
 syntax "{" " // " term " }" : term
 macro_rules
-  | `({ // $e}) =>  do `(Supertype $((←Lean.Elab.Term.expandCDot? e).getD e))
+  | `({ // $e}) =>  do ``(Supertype $((←Lean.Elab.Term.expandCDot? e).getD e))
 
 section
 
