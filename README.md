@@ -1,19 +1,28 @@
 # Supertype
-An extension of lean's Subtypes with extra features and syntax
+Supertype is an extension of lean's `Subtype` that provides addional conveniences, features and syntax.
 
-### Installation and Usage
+### Installation
 
-Add the following line to your `lakefile.lean`.
+To get started, add the following line to your `lakefile.lean`.
 
 ```lean
 require supertype from git "https://github.com/somombo/supertype" @ "main"
 ```
 
-Then you can use the package in the following manner:
+### Usage
+At the top of every lean file where you want to use Supertypes, add:
 
 ```lean
 import Supertype
-example : {// 5 + · < 17} := 2 ...
 ```
 
-(See [`Examples.lean`](https://github.com/somombo/supertype/blob/main/Examples.lean) file for more examples of usage and syntax)
+Then you can use the package in the following manner:
+
+```lean
+def x : {// 5 + · < 17} := 2 ...
+#reduce x.pred 1000 -- 5+1000 < 17 : Prop
+example : ¬(x.pred 1000) := by simp [x]
+```
+
+(For more examples of usage and syntax,
+See [`Examples.lean`](https://github.com/somombo/supertype/blob/main/Examples.lean) file)
