@@ -1,2 +1,2 @@
-import Supertype.Core
+import Supertype.Tactic
 import Supertype.Notation

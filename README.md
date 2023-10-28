@@ -19,9 +19,8 @@ import Supertype
 Then you can use the package in the following manner:
 
 ```lean
-def x : {// 5 + · < 17} := 2 ...
-#reduce x.pred 1000 -- 5+1000 < 17 : Prop
-example : ¬(x.pred 1000) := by simp [x]
+def x : { // 5 + · < 17 } := 2 ...
+def y : { (a, b) // 5 ≤ a + b } := ... (4,3)
 ```
 
 (For more examples of usage and syntax,

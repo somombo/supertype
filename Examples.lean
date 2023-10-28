@@ -1,62 +1,27 @@
 import Supertype
 set_option pp.notation false
 
+------------------------------------------------------------
 
--- section
--- end
-#check {n // 5 + n < 17} -- Subtype (5 + · < 17)
-
-#check {n \\ 5 + n < 17} -- Supertype (5 + · < 17)
-
-open Notation.Override in 
-  #check {n // 5 + n < 17}  -- Supertype (5 + · < 17)
-
-
-----------
-#check {// 5 + · < 17} -- does not require notation override
+#check { (a, b) : Nat × Nat // 5 ≤ a + b} -- Subtype fun (⟨a,b⟩ : Nat × Nat) => 5 ≤ a + b
+#check { (a, b) // 5 ≤ a + b} -- Subtype fun (a,b) => 5 ≤ a + b
+example : { (a, b) // 5 ≤ a + b} := ... (4,3)
+def x : { (a, b) : Nat×Nat // 5 ≤ a + b} := (4,3) ...
+#reduce x --  ⟨(4,3), by simp_arith⟩
 
 ------------
 
+structure Foo where  mk :: (p : Nat) (q : Bool) (r : String)
+#check { ⟨a, b, c⟩ : Foo // s!"{a} {b} {c}".length > 4 } -- Subtype fun (⟨a, b, c⟩ : Foo) => s!"{a} {b} {c}".length > 4
 
-example : Supertype (5 + · < 17) := ... 2
+---------------------------------------------------------------
 
-open Notation.Override in 
-  example : Supertype (5 + · < 17) := ↑2
-
-open Notation.Override in 
-  example : Supertype (5 + · < 17)  :=  ⟨2⟩ 
+#check {// 5 + · < 17} -- Subtype (5 + · < 17)
+example : {// 5 + · < 17} := ... 2
+def y : {// 5 + · < 17} := 2 ...
+#reduce y -- ⟨2, by simp_arith⟩
 
 ------------------------------------------------------------------------------------------
-@[simp] def x : {// 5 + · < 17} := 2 ...
-#reduce x.pred 1000 -- 5+1000 < 17 : Prop
-example : ¬(x.pred 1000) := by simp
-------------------------------------------------------------------------------------------
 
----- ALT
-
-example : {n : Nat \\ n < 5} :=  {val := 2} 
-example : {n \\ n < 5} = Supertype ( · < 5) := rfl
-
-example : {\\ 3 + · ≤ 11} = Supertype (3 + · ≤ 11) := rfl  #check {\\ 3 + · ≤ 11}
-example : {\\ · < 5} := 2 ...
-example : {\\ · < 5} := ... 2
-
-example : {\\ · < 5} := 7 ... -- Error: fails to automatically prove value has the predicted property
-example : {\\ · < 5} := ... 7 -- Error: fails to automatically prove value has the predicted property
-
--- OVERR
-section override 
-open Notation.Override 
-example : {n : Nat // n < 5} :=  {val := 2} 
-example : {n // n < 5} = Supertype ( · < 5) := rfl
-
-example : {// 3 + · ≤ 11} = Supertype (3 + · ≤ 11) := rfl  #check {// 3 + · ≤ 11}
-
-example : {// · < 5} :=  ↑2 
-example : {// · < 5} :=  ⟨ 2 ⟩
-
-example : {// · < 5} :=  ⟨ 2, by simp_arith ⟩
-
-example : {// · < 5} :=  ↑7   -- Error: fails to automatically prove value has the predicted property
-example : {// · < 5} :=  ⟨ 7 ⟩ -- Error: fails to automatically prove value has the predicted property
-end override
+example : {// · < 5} := 7 ... -- Error: fails to automatically prove value has the predicted property
+example : {// · < 5} := ... 7 -- Error: fails to automatically prove value has the predicted property
